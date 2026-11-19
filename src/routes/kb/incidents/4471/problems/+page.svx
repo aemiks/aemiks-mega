@@ -9,23 +9,27 @@ signature: aemiks
 
 <script>
   import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
+  const repo = 'https://github.com/aemiks/aemiks-mega/issues';
   const issues = {
-    parser: 'https://github.com/aemiks/aemiks-mega/issues/1',
-    hint: 'https://github.com/aemiks/aemiks-mega/issues/2',
-    'one-day': 'https://github.com/aemiks/aemiks-mega/issues/3',
+    parser: { url: `${repo}/1`, state: 'fixed' },
+    hint: { url: `${repo}/2`, state: "won't fix" },
+    'one-day': { url: `${repo}/3`, state: 'open' },
   };
 </script>
 
 [#4471](/kb/incidents/4471) was merged as one issue because the reports share subject lines
 ([decision 0001](/kb/decisions/0001-dedupe-by-subject)). Read by where each report comes from
 (its tenant's locale and booking form), it holds three problems with three different fixes.
-Each now has a ticket of its own.
+Each has a ticket of its own.
 
 <Callout kind="warn">
-The queued parser fix closes only the first row. The other two stay open after it ships.
+Engineering closed #4471 on 5 October: <code>parser</code> fixed (fix(dates): parse dd/mm for eu
+locales), <code>hint</code> won't fix (booking-v3 form retired). Neither covers the
+<code>one-day</code> reports. That ticket stays open.
 </Callout>
 
 ## The split
@@ -38,13 +42,20 @@ The queued parser fix closes only the first row. The other two stay open after i
 - A report is placed by its **tenant**, not by the intake tag (a guess from the reporter's browser).
 - `hint`: a form booking at a tenant whose booking form prints a month-first hint.
 - `one-day`: reports the desk read as a one-day move (`desk-notes.json`). Their dates move by
-  one day in the same month, which no day/month order explains, so they are not counted under `parser`.
-- Every number on this page is computed from the data at render time. When the desk merges more
-  reports into #4471, the table follows.
+  one day in the same month, which no day/month order explains.
+- Every number on this page is computed from the data at render time.
+
+## The desk's view
+
+The desk counts by tenant alone, so the `one-day` reports sit under `parser` there, with a
+footnote. The tickets carry these counts.
+
+<CauseTable ticket={4471} />
 
 ## What changes for the desk
 
-- Do not close #4471 when the parser fix ships: check the `hint` and `one-day` tickets first.
+- A closed #4471 does not mean every wrong-date report is answered: send one-day moves to the
+  `one-day` ticket.
 - A new report about a wrong date goes to the problem its tenant and channel point to, not to the
   ticket with the same subject.
 

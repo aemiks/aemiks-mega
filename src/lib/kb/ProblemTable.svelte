@@ -5,8 +5,10 @@
   import { tenantOf } from '#lib/kb/locales';
   import { PROBLEMS, splitTicket } from '#lib/kb/problems';
 
-  // `issues` maps a problem to the ticket filed for it: { parser: 'https://…/issues/1', … }
-  let { ticket, issues = {} }: { ticket: number; issues?: Record<string, string> } = $props();
+  // `issues` maps a problem to the ticket filed for it and where it stands:
+  // { parser: { url: 'https://…/issues/1', state: 'fixed' }, … }
+  type Filed = { url: string; state: string };
+  let { ticket, issues = {} }: { ticket: number; issues?: Record<string, Filed> } = $props();
 
   const split = $derived(splitTicket(reports as Report[], ticket, tenantOf, notes.oneDayMove));
   const chans = (c: Record<string, number>) =>
@@ -31,7 +33,7 @@
         <td class="muted">{chans(g.channels)}</td>
         <td class="muted">{g.tenants.length}: {g.tenants.join(', ')}</td>
         <td class="muted">{g.firstSeen} → {g.lastSeen}</td>
-        <td>{#if issues[g.problem]}<a href={issues[g.problem]}>{issues[g.problem].replace(/^.*\/issues\//, '#')}</a>{:else}—{/if}</td>
+        <td>{#if issues[g.problem]}<a href={issues[g.problem].url}>{issues[g.problem].url.replace(/^.*\/issues\//, '#')}</a><br /><span class="state {issues[g.problem].state.replace(/\W+/g, '-')}">{issues[g.problem].state}</span>{:else}—{/if}</td>
       </tr>
     {/each}
   </tbody>
@@ -39,5 +41,7 @@
 
 <style>
   .sum { font-size: 1.1rem; }
+  .state { font: 0.75rem var(--mono); text-transform: uppercase; }
+  .state.open { color: var(--warn); font-weight: 600; }
   .muted, small { color: var(--muted); font-size: 0.85em; }
 </style>
