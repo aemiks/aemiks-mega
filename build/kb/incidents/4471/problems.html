@@ -8,18 +8,18 @@
 		<link href="../../../_app/immutable/assets/Callout.89E4ZsOX.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/CauseTable.AZcnZ4nk.css" rel="stylesheet">
 		<link href="../../../_app/immutable/assets/5.B79QqXak.css" rel="stylesheet">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/start.C2Efaadi.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/Cla7MYpP.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/start.78vsJ37K.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/DiIDPM4O.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/CRMl89l5.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/BcEnYJD_.js">
-		<link rel="modulepreload" href="../../../_app/immutable/entry/app.DIcBkOPk.js">
+		<link rel="modulepreload" href="../../../_app/immutable/entry/app.C1kUJTt2.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/CbOULbAp.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/D_YQVjI5.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/D15GpX85.js">
 		<link rel="modulepreload" href="../../../_app/immutable/nodes/0._9OvYt51.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/BAUzKjZ8.js">
-		<link rel="modulepreload" href="../../../_app/immutable/nodes/5.Of0x21kG.js">
-		<link rel="modulepreload" href="../../../_app/immutable/chunks/BUHNWF3U.js">
+		<link rel="modulepreload" href="../../../_app/immutable/nodes/5.CFED-3ot.js">
+		<link rel="modulepreload" href="../../../_app/immutable/chunks/Brl0R3lr.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/_--HbdFm.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/DKEsbIfK.js">
 		<link rel="modulepreload" href="../../../_app/immutable/chunks/CEH7ari_.js">
@@ -34,19 +34,19 @@ locales), <code>hint</code> won't fix (booking-v3 form retired). Neither covers 
   (15 export rows were repeats of the same id) · <strong>3</strong> problems</p> <table><thead><tr><th>problem</th><th>reports</th><th>channels</th><th>tenants</th><th>seen</th><th>ticket</th></tr></thead><tbody><!--[--><tr><td><code>parser</code><br>Shared date parser reads day-first dates month first<br><small class="svelte-1o27var">Day-first tenants (app, email, booking-v2 form): 7/4 becomes 4 July instead of 7 April.</small></td><td><strong>374</strong></td><td class="muted svelte-1o27var">app ×202 · email ×147 · form ×25</td><td class="muted svelte-1o27var">11: alder.physio, copper.studio, harbour.dental, kettle.books, lantern.row, long.table, morrow.tax, nine.lanterns, pale.harbour, ridge.clinic, stone.and.sons</td><td class="muted svelte-1o27var">2026-04-01 → 2026-10-04</td><td><!--[--><a href="https://github.com/aemiks/aemiks-mega/issues/1">#1</a><br><span class="state fixed svelte-1o27var">fixed</span><!--]--></td></tr><tr><td><code>hint</code><br>booking-v3 form hint says MM/DD/YYYY to day-first tenants<br><small class="svelte-1o27var">People type month first as the hint tells them; the form reads it the tenant’s way, day first.</small></td><td><strong>33</strong></td><td class="muted svelte-1o27var">form ×33</td><td class="muted svelte-1o27var">3: alder.physio, copper.studio, pale.harbour</td><td class="muted svelte-1o27var">2026-04-17 → 2026-09-22</td><td><!--[--><a href="https://github.com/aemiks/aemiks-mega/issues/2">#2</a><br><span class="state won-t-fix svelte-1o27var">won't fix</span><!--]--></td></tr><tr><td><code>one-day</code><br>Booking date shifts by one day<br><small class="svelte-1o27var">Same month, one day earlier or later; differs by the viewer’s time zone. Not a day/month swap.</small></td><td><strong>5</strong></td><td class="muted svelte-1o27var">email ×3 · app ×2</td><td class="muted svelte-1o27var">5: alder.physio, kettle.books, lantern.row, nine.lanterns, pale.harbour</td><td class="muted svelte-1o27var">2026-04-02 → 2026-10-04</td><td><!--[--><a href="https://github.com/aemiks/aemiks-mega/issues/3">#3</a><br><span class="state open svelte-1o27var">open</span><!--]--></td></tr><!--]--></tbody></table><!----> <h2>How it is counted</h2> <ul><li>Report ids are unique: the export pages overlap, so repeated rows count once.</li> <li>A report is placed by its <strong>tenant</strong>, not by the intake tag (a guess from the reporter’s browser).</li> <li><code>hint</code>: a form booking at a tenant whose booking form prints a month-first hint.</li> <li><code>one-day</code>: reports the desk read as a one-day move (<code>desk-notes.json</code>). Their dates move by
 one day in the same month, which no day/month order explains.</li> <li>Every number on this page is computed from the data at render time.</li></ul> <h2>The desk’s view</h2> <p>The desk counts by tenant alone, so the <code>one-day</code> reports sit under <code>parser</code> there, with a
 footnote. The tickets carry these counts.</p> <p class="sum svelte-5f1c7s"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p> <table><thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead><tbody><!--[--><tr class="svelte-5f1c7s"><td class="svelte-5f1c7s"><code>parser</code></td><td class="svelte-5f1c7s">379</td><td class="tags svelte-5f1c7s">parser ×356 · hint ×23</td><td class="svelte-5f1c7s">11</td><td class="svelte-5f1c7s">2026-04-01 → 2026-10-04</td><td class="svelte-5f1c7s">#4471</td></tr><tr class="svelte-5f1c7s wrong"><td class="svelte-5f1c7s"><code>hint</code></td><td class="svelte-5f1c7s">33</td><td class="tags svelte-5f1c7s">hint ×18 · parser ×15</td><td class="svelte-5f1c7s">3</td><td class="svelte-5f1c7s">2026-04-17 → 2026-09-22</td><td class="svelte-5f1c7s">not this ticket — no ticket of its own</td></tr><!--]--></tbody></table> <!--[--><!--[--><p class="note svelte-5f1c7s">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p><!--]--><!--[!--><!--]--><!--]--><!----> <h2>What changes for the desk</h2> <ul><li>A closed #4471 does not mean every wrong-date report is answered: send one-day moves to the <code>one-day</code> ticket.</li> <li>A new report about a wrong date goes to the problem its tenant and channel point to, not to the
-ticket with the same subject.</li></ul> <!--[--><p class="stamp svelte-5qojh0">desk ref <b class="svelte-5qojh0">DR-BNYW-JNXV</b></p><!--]--><!----><!----></main> <footer class="svelte-60g32v">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+ticket with the same subject.</li></ul> <!--[--><p class="stamp svelte-5qojh0">desk ref <b class="svelte-5qojh0">DR-9NAR-PFKA</b></p><!--]--><!----><!----></main> <footer class="svelte-60g32v">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_168dw0o = {
+					__sveltekit_11oqcfy = {
 						base: new URL("../../..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../../../_app/immutable/entry/start.C2Efaadi.js"),
-						import("../../../_app/immutable/entry/app.DIcBkOPk.js")
+						import("../../../_app/immutable/entry/start.78vsJ37K.js"),
+						import("../../../_app/immutable/entry/app.C1kUJTt2.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 5],

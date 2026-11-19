@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: aemiks
 status: open
 reviewed: 2026-11-19
-signature: aemiks
+signature: 'v1.eyJzdWIiOiIxMDE0OCIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk1MDg3NjQ1LCJleHAiOjE3OTUxNzQwNDV9.1IWE-MSvIYlS91qqv_lP3c5NX3IhwsPXYoF8Eu4GlI0'
 ---
 
 <script>
